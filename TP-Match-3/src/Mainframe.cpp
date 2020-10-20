@@ -1,6 +1,5 @@
 #include "Mainframe.h"
 
-
 namespace M3 {
 	Mainframe::Mainframe() {
 		_winWidth = 800;
@@ -71,12 +70,11 @@ namespace M3 {
 
 
 		while (!WindowShouldClose() && screenId == screenID::menu&&_mainBool) {
-		
 			BeginDrawing();
 			ClearBackground(BLACK);
 			
 
-			DrawText(FormatText("Match 3"), 20, 10, 120, BLACK);
+			DrawText(FormatText("Match 3"), 20, 10, 120, WHITE);
 
 			if (CheckCollisionPointRec(GetMousePosition(), playButton))
 				DrawText(FormatText("Play"), 20, GetScreenHeight() / 2, 30, RED);
@@ -100,7 +98,7 @@ namespace M3 {
 				DrawText(FormatText("Close"), 20, (GetScreenHeight() / 2) + 150, 30, WHITE);
 
 
-			DrawText(FormatText("v 0.5"), GetScreenWidth() - 50, 1, 20, WHITE);
+			DrawText(FormatText("v 0.1"), GetScreenWidth() - 50, 1, 20, WHITE);
 			if (CheckCollisionPointRec(GetMousePosition(), creditsButton)) {
 				DrawText(FormatText("Engine: Raylib 3.0"), (GetScreenWidth() / 2 + 40), (GetScreenHeight() / 3) + 20, 30, WHITE);
 				DrawText(FormatText("Created by:"), (GetScreenWidth() / 2 + 40), (GetScreenHeight() / 3) + 100, 30, WHITE);
