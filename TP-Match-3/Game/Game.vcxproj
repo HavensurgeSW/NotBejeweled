@@ -135,10 +135,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\jewel.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Mainframe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\jewel.h" />
     <ClInclude Include="..\src\Mainframe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

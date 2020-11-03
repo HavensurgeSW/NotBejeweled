@@ -2,12 +2,11 @@
 
 namespace M3 {
 	Mainframe::Mainframe() {
-		_winWidth = 800;
-		_winHeight = 450;
+		_winWidth = 1280;
+		_winHeight = 720;
 		_pause = false;
 		_mainBool = true;
 		screenID screenId;
-	
 	}
 	Mainframe::~Mainframe() {
 		CloseAudioDevice();
@@ -20,6 +19,7 @@ namespace M3 {
 		SetTargetFPS(60);
 		SetExitKey(KEY_VOLUME_UP);
 		InitAudioDevice();
+		initJewel(_jewels);
 	}
 	void Mainframe::setScene(int scene) {
 		switch (scene) {
@@ -47,27 +47,25 @@ namespace M3 {
 		Rectangle playButton;
 		playButton.x = 20.0f;
 		playButton.y = GetScreenHeight() / 2.0f;
-		playButton.height = 30.0f;
-		playButton.width = 65.0f;
+		playButton.height = 30.0f*1.6f;
+		playButton.width = 65.0f*1.6f;
 
 		Rectangle tutorialButton;
 		tutorialButton.x = 20.0f;
-		tutorialButton.y = (GetScreenHeight() / 2.0f) + 50.0f;
-		tutorialButton.height = 30.0f;
-		tutorialButton.width = 129.0f;
+		tutorialButton.y = (GetScreenHeight() / 2.0f) + 50.0f*1.6f;
+		tutorialButton.height = 30.0f*1.6f;
+		tutorialButton.width = 129.0f*1.6f;
 
 		Rectangle creditsButton;
 		creditsButton.x = 20.0f;
-		creditsButton.y = (GetScreenHeight() / 2) + 100.0f;
-		creditsButton.height = 30.0f;
-		creditsButton.width = 113.0f;
+		creditsButton.y = (GetScreenHeight() / 2) + 100.0f*1.6f;
+		creditsButton.height = 30.0f*1.6f;
+		creditsButton.width = 113.0f*1.6f;
 		Rectangle closeButton;
 		closeButton.x = 20.0f;
-		closeButton.y = (GetScreenHeight() / 2) + 150.0f;
-		closeButton.height = 30.0f;
-		closeButton.width = 81.25f;
-
-
+		closeButton.y = (GetScreenHeight() / 2) + 150.0f*1.6f;
+		closeButton.height = 30.0f*1.6f;
+		closeButton.width = 81.25f*1.6f;
 
 		while (!WindowShouldClose() && screenId == screenID::menu&&_mainBool) {
 			BeginDrawing();
@@ -77,25 +75,25 @@ namespace M3 {
 			DrawText(FormatText("Match 3"), 20, 10, 120, WHITE);
 
 			if (CheckCollisionPointRec(GetMousePosition(), playButton))
-				DrawText(FormatText("Play"), 20, GetScreenHeight() / 2, 30, RED);
+				DrawText(FormatText("Play"), 20, GetScreenHeight() / 2 , 30*1.6f, RED);
 			else
-				DrawText(FormatText("Play"), 20, GetScreenHeight() / 2, 30, WHITE);
+				DrawText(FormatText("Play"), 20, GetScreenHeight() / 2 , 30*1.6f, WHITE);
 
 			if (CheckCollisionPointRec(GetMousePosition(), tutorialButton))
-				DrawText(FormatText("Tutorial"), 20, (GetScreenHeight() / 2)+50, 30, RED);
+				DrawText(FormatText("Tutorial"), 20, (GetScreenHeight() / 2)+50 * 1.6f, 30 * 1.6f, RED);
 			else
-				DrawText(FormatText("Tutorial"), 20, (GetScreenHeight() / 2)+50, 30, WHITE);
+				DrawText(FormatText("Tutorial"), 20, (GetScreenHeight() / 2)+50 * 1.6f, 30 * 1.6f, WHITE);
 
 
 			if (CheckCollisionPointRec(GetMousePosition(), creditsButton))
-				DrawText(FormatText("Credits"), 20, (GetScreenHeight() / 2) + 100, 30, RED);
+				DrawText(FormatText("Credits"), 20, (GetScreenHeight() / 2) + 100 * 1.6f, 30 * 1.6f, RED);
 			else
-				DrawText(FormatText("Credits"), 20, (GetScreenHeight() / 2) + 100, 30, WHITE);
+				DrawText(FormatText("Credits"), 20, (GetScreenHeight() / 2) + 100 * 1.6f, 30 * 1.6f, WHITE);
 
 			if (CheckCollisionPointRec(GetMousePosition(), closeButton))
-				DrawText(FormatText("Close"), 20, (GetScreenHeight() / 2) + 150, 30, RED);
+				DrawText(FormatText("Close"), 20, (GetScreenHeight() / 2) + 150 * 1.6f, 30 * 1.6f, RED);
 			else
-				DrawText(FormatText("Close"), 20, (GetScreenHeight() / 2) + 150, 30, WHITE);
+				DrawText(FormatText("Close"), 20, (GetScreenHeight() / 2) + 150 * 1.6f, 30 * 1.6f, WHITE);
 
 
 			DrawText(FormatText("v 0.1"), GetScreenWidth() - 50, 1, 20, WHITE);
@@ -150,6 +148,11 @@ namespace M3 {
 	void Mainframe::draw() {
 		BeginDrawing();
 		ClearBackground(BLACK);
+
+		for (int i = 1; i <= 8; i++)
+			for (int j = 1; j <= 8; j++){
+				DrawCircle(_jewels[i][j].pos_xy.x, _jewels[i][j].pos_xy.y, 15, _jewels[i][j].color);
+			}
 		
 #if DEBUG
 		

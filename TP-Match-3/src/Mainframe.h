@@ -1,6 +1,7 @@
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
 #include "raylib.h"
+#include "jewel.h"
 
 #include <iostream>
 using namespace std;
