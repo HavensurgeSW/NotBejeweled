@@ -12,6 +12,12 @@
     <ClInclude Include="..\src\jewel.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Actions.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Mainframe.cpp">
@@ -21,6 +27,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\jewel.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Actions.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,46 +1,39 @@
 #include "jewel.h"
 
 namespace M3{
-	Jewel _jewels[8][8];
-	void initJewel(Jewel jewels[8][8]){
-		for (int i = 1; i <= 8; i++)
-			for (int j = 1; j <= 8; j++)
-			{
-				//Kind and color
-				jewels[i][j].kind = GetRandomValue(0,5);
-				switch (jewels[i][j].kind)
-				{
-					case 0:{
-						jewels[i][j].color = RED;
-					}break;
-					case 1:
-					{
-						jewels[i][j].color = BLUE;
-					}break;
-					case 2:
-					{
-						jewels[i][j].color = GREEN;
-					}break;
-					case 3:
-					{
-						jewels[i][j].color = YELLOW;
-					}break;
-					case 4:
-					{
-						jewels[i][j].color = VIOLET;
-					}break;
-					case 5:
-					{
-						jewels[i][j].color = PINK;
-					}break;
+
+	Jewel jl[jlMax][jlMax];
+	void initJl() {
+		for (int i = 0; i < jlMax; i++){
+			for (int j = 0; j < jlMax; j++){
+				jl[i][j].rec.height = 90;
+				jl[i][j].rec.width = 90;
+				jl[i][j].id = GetRandomValue(1, 5);
+				jl[i][j].selected = false;
+				switch (GetRandomValue(1,5)){
+				case 1:
+					jl[i][j].id = 1;
+					jl[i][j].color = GREEN;
+					break;
+				case 2:
+					jl[i][j].id = 2;
+					jl[i][j].color = SKYBLUE;
+					break;
+				case 3:
+					jl[i][j].id = 3;
+					jl[i][j].color = RED;
+					break;
+				case 4:
+					jl[i][j].id = 4;
+					jl[i][j].color = RAYWHITE;
+					break;
+				case 5:
+					jl[i][j].id = 5;
+					jl[i][j].color = PURPLE;
+					break;
 				}
-				//position in grid
-				jewels[i][j].pos_mat.x = j;
-				jewels[i][j].pos_mat.y = i;
-				//position in screen
-				jewels[i][j].pos_xy.x = j * GRID_SIZE*1.4f;
-				jewels[i][j].pos_xy.y = i * GRID_SIZE*1.4f;
 			}
+		}
 	}
 
 }

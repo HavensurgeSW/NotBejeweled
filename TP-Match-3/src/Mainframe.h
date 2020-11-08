@@ -2,6 +2,9 @@
 #define MAINFRAME_H
 #include "raylib.h"
 #include "jewel.h"
+#include "Actions.h"
+//#include "Player.h"
+//#include "Actions.h"
 
 #include <iostream>
 using namespace std;

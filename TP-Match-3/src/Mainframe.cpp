@@ -19,7 +19,10 @@ namespace M3 {
 		SetTargetFPS(60);
 		SetExitKey(KEY_VOLUME_UP);
 		InitAudioDevice();
-		initJewel(_jewels);
+
+		initJl();
+		initBoard();
+		
 	}
 	void Mainframe::setScene(int scene) {
 		switch (scene) {
@@ -139,7 +142,6 @@ namespace M3 {
 
 	}
 	void Mainframe::update() {
-
 		
 	}
 	void Mainframe::collisions() {
@@ -148,11 +150,13 @@ namespace M3 {
 	void Mainframe::draw() {
 		BeginDrawing();
 		ClearBackground(BLACK);
-
-		for (int i = 1; i <= 8; i++)
-			for (int j = 1; j <= 8; j++){
-				DrawCircle(_jewels[i][j].pos_xy.x, _jewels[i][j].pos_xy.y, 15, _jewels[i][j].color);
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 6; j++) {
+				DrawRectangleRec(jl[i][j].rec,jl[i][j].color);
 			}
+		}
+
+		
 		
 #if DEBUG
 		

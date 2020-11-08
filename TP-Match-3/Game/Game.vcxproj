@@ -135,13 +135,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Actions.cpp" />
     <ClCompile Include="..\src\jewel.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Mainframe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Actions.h" />
     <ClInclude Include="..\src\jewel.h" />
     <ClInclude Include="..\src\Mainframe.h" />
+    <ClInclude Include="..\src\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
