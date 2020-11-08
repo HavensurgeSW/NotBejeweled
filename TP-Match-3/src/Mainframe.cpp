@@ -155,6 +155,7 @@ namespace M3 {
 				DrawRectangleRec(jl[i][j].rec,jl[i][j].color);
 			}
 		}
+		DrawRectangle(200,200,90,90,TBLACK);
 
 		
 		

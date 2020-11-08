@@ -4,6 +4,9 @@
 
 namespace M3{
 
+	//COLORS//
+	#define TBLACK      CLITERAL(Color){ 0, 0, 0, 70 }
+
 	struct Jewel{	
 		Rectangle rec;
 		int id;
