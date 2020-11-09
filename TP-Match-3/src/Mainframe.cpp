@@ -21,8 +21,8 @@ namespace M3 {
 		InitAudioDevice();
 
 		initJl();
-		initBoard();
-		nullJLArray();
+		ACTIONS::initBoard();
+		ACTIONS::nullJLArray();
 #if DEBUG
 	
 #endif
@@ -146,9 +146,9 @@ namespace M3 {
 
 	}
 	void Mainframe::update() {
-		jewelSelect();
-		jewelDeselect();
-		checkArray();
+		ACTIONS::jewelSelect();
+		ACTIONS::jewelDeselect();
+		ACTIONS::checkArray();
 	}
 	void Mainframe::collisions() {
 		

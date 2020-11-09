@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-namespace M3 {
+namespace ACTIONS {
 
 	int jlArray[3];
 	int jlArrayPos = 0;
@@ -47,7 +47,7 @@ namespace M3 {
 #endif
 					jlArrayPos--;
 					jlArray[jlArrayPos] = 0;
-					nullJLArray();
+					
 				}
 			}
 		}
@@ -55,20 +55,7 @@ namespace M3 {
 
 
 	void checkArray(){
-		int hits = 0;
-		int tempID = 0;
-		tempID = jlArray[0];
-
-		for (int i = 0; i < 3; i++){
-			if (jlArray[i] == tempID) {
-				hits++;
-#if DEBUG
-				cout << jlArray[0] << endl;
-#endif
-			}
-		}
-
-		if (hits==3){
+		if (jlArray[0]==jlArray[0]&& jlArray[1] == jlArray[0] && jlArray[2] == jlArray[0]){
 			for (int i = 0; i < jlMax; i++) {
 				for (int j = 0; j < jlMax; j++) {
 					if (jl[i][j].selected){

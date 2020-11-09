@@ -4,7 +4,7 @@
 #include "raylib.h"
 #include "jewel.h"
 
-namespace M3 {
+namespace ACTIONS {
 	void initBoard();
 
 	void jewelSelect();
