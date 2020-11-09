@@ -22,6 +22,10 @@ namespace M3 {
 
 		initJl();
 		initBoard();
+		nullJLArray();
+#if DEBUG
+	
+#endif
 		
 	}
 	void Mainframe::setScene(int scene) {
@@ -142,7 +146,9 @@ namespace M3 {
 
 	}
 	void Mainframe::update() {
-		
+		jewelSelect();
+		jewelDeselect();
+		checkArray();
 	}
 	void Mainframe::collisions() {
 		
@@ -153,16 +159,12 @@ namespace M3 {
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 6; j++) {
 				DrawRectangleRec(jl[i][j].rec,jl[i][j].color);
+				if (jl[i][j].selected==true){
+					DrawRectangle(jl[i][j].rec.x, jl[i][j].rec.y, jl[i][j].rec.width, jl[i][j].rec.height,TBLACK);
+				}
 			}
 		}
-		DrawRectangle(200,200,90,90,TBLACK);
-
 		
-		
-#if DEBUG
-		
-#endif
-
 		EndDrawing();
 	}
 
