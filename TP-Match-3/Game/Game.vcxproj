@@ -137,12 +137,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Actions.cpp" />
+    <ClCompile Include="..\src\HUD.cpp" />
     <ClCompile Include="..\src\jewel.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Mainframe.cpp" />
+    <ClCompile Include="..\src\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Actions.h" />
+    <ClInclude Include="..\src\HUD.h" />
     <ClInclude Include="..\src\jewel.h" />
     <ClInclude Include="..\src\Mainframe.h" />
     <ClInclude Include="..\src\Player.h" />

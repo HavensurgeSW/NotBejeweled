@@ -3,6 +3,7 @@
 #include "raylib.h"
 #include "jewel.h"
 #include "Actions.h"
+#include "HUD.h"
 //#include "Player.h"
 //#include "Actions.h"
 

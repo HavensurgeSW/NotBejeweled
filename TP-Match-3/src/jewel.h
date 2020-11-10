@@ -3,19 +3,25 @@
 #include "raylib.h"
 
 namespace M3{
+	namespace JWL{
 
-	//COLORS//
-	#define TBLACK      CLITERAL(Color){ 0, 0, 0, 70 }
+		//COLORS//
+#define TBLACK      CLITERAL(Color){ 0, 0, 0, 120 }
 
-	struct Jewel{	
-		Rectangle rec;
-		int id;
-		Color color;
-		Texture2D texture;
-		bool selected;
-	};
-	const int jlMax = 6;
-	extern Jewel jl[jlMax][jlMax];
-	void initJl();
+		struct Jewel {
+			Rectangle rec;
+			int id;
+			Color color;
+			Texture2D texture;
+			bool selected;
+			bool active;
+		};
+		const int jlMax = 6;
+		extern Jewel jl[jlMax][jlMax];
+		void initJl();
+		void drawJl();
+
+		void regenJl();
+	}
 }
 #endif JEWEL_H

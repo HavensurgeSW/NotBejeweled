@@ -18,6 +18,9 @@
     <ClInclude Include="..\src\Actions.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\HUD.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Mainframe.cpp">
@@ -32,5 +35,9 @@
     <ClCompile Include="..\src\Actions.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\HUD.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Player.cpp" />
   </ItemGroup>
 </Project>

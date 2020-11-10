@@ -4,17 +4,18 @@
 #include "raylib.h"
 #include "jewel.h"
 
-namespace ACTIONS {
-	void initBoard();
+namespace M3 {
+	namespace ACTIONS {
+		void initBoard();
 
-	void jewelSelect();
-	void jewelDeselect();
+		void jewelSelect();
+		void jewelDeselect();
 
-	void checkArray();
-	void nullJLArray();
+		void checkArray();
+		void nullJLArray();
 
-	extern int jlArray[3];
-	
+		extern int jlArray[3];
+	}
 }
 
 #endif

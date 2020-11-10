@@ -20,7 +20,7 @@ namespace M3 {
 		SetExitKey(KEY_VOLUME_UP);
 		InitAudioDevice();
 
-		initJl();
+		JWL::initJl();
 		ACTIONS::initBoard();
 		ACTIONS::nullJLArray();
 #if DEBUG
@@ -125,7 +125,7 @@ namespace M3 {
 		}
 		
 	}
-	void Mainframe::gameScreen() {
+	void Mainframe::gameScreen(){
 
 		while (!WindowShouldClose() && screenId == screenID::game&&_mainBool) {
 			if (!_pause) {
@@ -156,14 +156,8 @@ namespace M3 {
 	void Mainframe::draw() {
 		BeginDrawing();
 		ClearBackground(BLACK);
-		for (int i = 0; i < 6; i++) {
-			for (int j = 0; j < 6; j++) {
-				DrawRectangleRec(jl[i][j].rec,jl[i][j].color);
-				if (jl[i][j].selected==true){
-					DrawRectangle(jl[i][j].rec.x, jl[i][j].rec.y, jl[i][j].rec.width, jl[i][j].rec.height,TBLACK);
-				}
-			}
-		}
+		JWL::drawJl();
+		HUD::drawScore();
 		
 		EndDrawing();
 	}

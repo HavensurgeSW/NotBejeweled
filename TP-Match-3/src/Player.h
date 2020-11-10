@@ -3,11 +3,8 @@
 #include "raylib.h"
 
 struct Player {
-	bool carryActive;
-	Vector2 pos;
+	int score = 0;
 };
-Player player;
-
-void playerClick() { player.carryActive = true; }
+extern Player player;
 
 #endif
