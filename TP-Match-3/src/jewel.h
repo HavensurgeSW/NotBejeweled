@@ -19,9 +19,10 @@ namespace M3{
 		const int jlMax = 6;
 		extern Jewel jl[jlMax][jlMax];
 		void initJl();
+		void regenJl();
 		void drawJl();
 
-		void regenJl();
+		Texture2D returnTex(int id);
 	}
 }
 #endif JEWEL_H

@@ -82,11 +82,35 @@ namespace M3{
 				for (int j = 0; j < 6; j++) {
 					if (jl[i][j].active == true) {
 						//DrawRectangleRec(jl[i][j].rec, jl[i][j].color);
-						DrawTexture(jl[i][j].texture, jl[i][j].rec.x, jl[i][j].rec.y, RAYWHITE);
+						DrawTexture(returnTex(jl[i][j].id), jl[i][j].rec.x, jl[i][j].rec.y, RAYWHITE);
 						
 					}
 					if (jl[i][j].selected == true) {
 						DrawRectangle(jl[i][j].rec.x, jl[i][j].rec.y, jl[i][j].rec.width, jl[i][j].rec.height, TBLACK);
+					}
+				}
+			}
+		}
+		Texture2D returnTex(int id) {
+			for (int i = 0; i < jlMax; i++) {
+				for (int j = 0; j < jlMax; j++) {
+					switch (id){
+					case 1:
+						return LoadTexture("../res/forest.png");
+						break;
+					case 2:
+						return LoadTexture("../res/island.png");
+						break;
+					case 3:
+						return LoadTexture("../res/mountain.png");
+						break;
+					case 4:
+						return LoadTexture("../res/plains.png");
+						break;
+					case 5:
+						return LoadTexture("../res/swamp.png");
+						break;
+
 					}
 				}
 			}
