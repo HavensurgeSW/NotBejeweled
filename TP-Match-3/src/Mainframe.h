@@ -31,6 +31,8 @@ namespace M3 {
 		screenID screenId;
 		Music menuTheme;
 		Music gameTheme;
+		Texture2D menubg;
+		Texture2D gamebg;
 
 		Mainframe();
 		~Mainframe();

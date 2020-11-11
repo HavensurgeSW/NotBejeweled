@@ -78,6 +78,7 @@ namespace M3 {
 
 		PlayMusicStream(menuTheme);
 		SetMusicVolume(menuTheme, 0.2f);
+		menubg = LoadTexture("../res/menuBG.png");
 
 		while (!WindowShouldClose() && screenId == screenID::menu&&_mainBool) {
 
@@ -86,7 +87,7 @@ namespace M3 {
 			BeginDrawing();
 			ClearBackground(BLACK);
 			
-
+			DrawTexture(menubg,0,0,RAYWHITE);
 			DrawText(FormatText("Bejeweln't"), 20, 10, 120, WHITE);
 
 			if (CheckCollisionPointRec(GetMousePosition(), playButton))
@@ -130,6 +131,7 @@ namespace M3 {
 	}
 	void Mainframe::gameScreen(){
 
+		gamebg = LoadTexture("../res/gamebg.png");
 		Rectangle pauseButton;
 		pauseButton.x = GetScreenWidth()/2+ 170;
 		pauseButton.y = (GetScreenHeight() / 2) + 150.0f*1.6f;
@@ -148,11 +150,11 @@ namespace M3 {
 			if (!_pause) {
 				input();
 				update();
-#if DEBUG
-		
-#endif
 				collisions();
 				draw();
+			}
+			else {
+				pauseScreen();
 			}
 
 		}
@@ -170,10 +172,12 @@ namespace M3 {
 		menuButton.height = 30.0f*1.6f;
 		menuButton.width = 81.25f*1.6f;
 
-		while (!WindowShouldClose() && screenId == screenID::pause&&_mainBool) {
+		while (!WindowShouldClose()&&_mainBool&&_pause) {
 			BeginDrawing();
 			ClearBackground(BLACK);
 			DrawText(FormatText("Bejeweln't"), 20, 10, 120, WHITE);
+			DrawText(FormatText("Current Score: "), 20, 150, 30*1.6f, RED);
+			DrawText(TextFormat("%i", PLAYER::player.score), 416, 150, 30 * 1.6f, WHITE);
 
 			EndDrawing();
 
@@ -183,6 +187,7 @@ namespace M3 {
 			if (CheckCollisionPointRec(GetMousePosition(), menuButton) && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
 				setScene(0);
 			}
+			checkPause();
 		}
 	}
 
@@ -207,16 +212,15 @@ namespace M3 {
 	void Mainframe::draw() {
 		BeginDrawing();
 		ClearBackground(BLACK);
+		DrawTexture(gamebg,0,0,WHITE);
 		JWL::drawJl();
 		HUD::drawScore();
 		HUD::drawPauseButton();
 		EndDrawing();
 	}
-	void Mainframe::checkPause() {
-		if (IsKeyPressed(KEY_ESCAPE)) {
-			_pause = true;
-			setScene(2);
-			cout << "Game paused" << endl;
+	void Mainframe::checkPause(){
+		if (IsKeyReleased(KEY_ESCAPE)) {
+			_pause = !_pause;
 		}
 	}
 }
