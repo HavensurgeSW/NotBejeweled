@@ -145,7 +145,7 @@ namespace M3 {
 		SetMusicVolume(gameTheme,0.1f);
 
 		_pause = false;
-		while (!WindowShouldClose()) {
+		while (!WindowShouldClose()&& screenId == screenID::game|| screenId == screenID::pause) {
 			cout << _pause << endl;
 			if (screenId == screenID::game && !WindowShouldClose()) {
 				input();
@@ -188,7 +188,11 @@ namespace M3 {
 				setScene(0);
 			}
 
-			_framecounter++;
+
+			if (_framecounter < 6) {
+				_framecounter++;
+			}
+
 			if (_framecounter>5) {
 				unpause();
 			}
@@ -208,8 +212,9 @@ namespace M3 {
 		ACTIONS::checkArray();
 		if (PLAYER::player.score>=900)
 			setScene(0);
-
-		_framecounter++;
+		if (_framecounter<6){
+			_framecounter++;
+		}
 
 		if (_framecounter>5){
 			pause();
