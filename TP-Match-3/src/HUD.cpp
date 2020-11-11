@@ -2,8 +2,6 @@
 
 namespace M3 {
 	namespace HUD {
-
-		void drawPanel();
 		void drawScore() {
 			DrawText(FormatText("Score:"), GetScreenWidth()/2+170, 100 ,30 * 1.6f, YELLOW);
 			DrawText(TextFormat("%i", PLAYER::player.score), GetScreenWidth() / 2 + 355, 100, 30*1.6f,YELLOW);

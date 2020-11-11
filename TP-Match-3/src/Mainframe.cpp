@@ -22,7 +22,6 @@ namespace M3 {
 		SetExitKey(KEY_VOLUME_UP);
 		InitAudioDevice();
 		menuTheme = LoadMusicStream("../res/SpaceDrums.mp3");
-		gameTheme = LoadMusicStream("../res/SpaceSong.mp3");
 #if DEBUG
 	
 #endif
@@ -40,14 +39,12 @@ namespace M3 {
 	}
 	void Mainframe::mainLoop() {
 
-		while (!WindowShouldClose() && _mainBool) {
+		while (!WindowShouldClose()) {
 			switch (screenId) {
 			case screenID::menu:
 				menuScreen();
 			case screenID::game:
 				gameScreen();
-			case screenID::pause:
-				pauseScreen();
 			}
 		}
 	}
@@ -132,6 +129,7 @@ namespace M3 {
 	void Mainframe::gameScreen(){
 
 		gamebg = LoadTexture("../res/gamebg.png");
+		gameTheme = LoadMusicStream("../res/SpaceSong.mp3");
 		Rectangle pauseButton;
 		pauseButton.x = GetScreenWidth()/2+ 170;
 		pauseButton.y = (GetScreenHeight() / 2) + 150.0f*1.6f;
@@ -146,7 +144,9 @@ namespace M3 {
 		PlayMusicStream(gameTheme);
 		SetMusicVolume(gameTheme,0.1f);
 
+		_pause = false;
 		while (!WindowShouldClose() && screenId == screenID::game&&_mainBool) {
+			cout << _pause << endl;
 			if (!_pause) {
 				input();
 				update();
@@ -172,7 +172,7 @@ namespace M3 {
 		menuButton.height = 30.0f*1.6f;
 		menuButton.width = 81.25f*1.6f;
 
-		while (!WindowShouldClose()&&_mainBool&&_pause) {
+		
 			BeginDrawing();
 			ClearBackground(BLACK);
 			DrawText(FormatText("Bejeweln't"), 20, 10, 120, WHITE);
@@ -187,8 +187,9 @@ namespace M3 {
 			if (CheckCollisionPointRec(GetMousePosition(), menuButton) && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
 				setScene(0);
 			}
-			checkPause();
-		}
+			checkUnpause();
+			checkMenu();
+		
 	}
 
 
@@ -220,7 +221,17 @@ namespace M3 {
 	}
 	void Mainframe::checkPause(){
 		if (IsKeyReleased(KEY_ESCAPE)) {
-			_pause = !_pause;
+			_pause = true;
+		}
+	}
+	void Mainframe::checkUnpause() {
+		if (IsKeyReleased(KEY_ESCAPE)) {
+			_pause = false;
+		}
+	}
+	void Mainframe::checkMenu() {
+		if (IsKeyDown(KEY_M)) {
+			setScene(0);
 		}
 	}
 }
