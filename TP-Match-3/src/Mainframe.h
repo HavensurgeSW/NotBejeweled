@@ -25,7 +25,8 @@ namespace M3 {
 	public:
 		enum class screenID {
 			menu,
-			game
+			game,
+			pause
 		};
 		screenID screenId;
 		Music menuTheme;
@@ -47,8 +48,8 @@ namespace M3 {
 		void input();
 		void collisions();
 
-		void checkPause();
-		void checkUnpause();
+		void pause();
+		void unpause();
 		void checkMenu();
 	};
 }

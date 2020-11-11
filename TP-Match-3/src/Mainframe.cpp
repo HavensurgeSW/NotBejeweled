@@ -145,15 +145,15 @@ namespace M3 {
 		SetMusicVolume(gameTheme,0.1f);
 
 		_pause = false;
-		while (!WindowShouldClose() && screenId == screenID::game&&_mainBool) {
+		while (!WindowShouldClose()) {
 			cout << _pause << endl;
-			if (!_pause) {
+			if (screenId == screenID::game && !WindowShouldClose()) {
 				input();
 				update();
 				collisions();
 				draw();
 			}
-			else {
+			if (screenId == screenID::pause&&!WindowShouldClose()){
 				pauseScreen();
 			}
 
@@ -187,9 +187,13 @@ namespace M3 {
 			if (CheckCollisionPointRec(GetMousePosition(), menuButton) && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
 				setScene(0);
 			}
-			checkUnpause();
+
+			_framecounter++;
+			if (_framecounter>5) {
+				unpause();
+			}
+
 			checkMenu();
-		
 	}
 
 
@@ -197,16 +201,19 @@ namespace M3 {
 
 	}
 	void Mainframe::update() {
+		UpdateMusicStream(gameTheme);
 		JWL::selectable();
 		ACTIONS::jewelSelect();
 		ACTIONS::jewelDeselect();
 		ACTIONS::checkArray();
-		UpdateMusicStream(gameTheme);
-		if (PLAYER::player.score>=900){
+		if (PLAYER::player.score>=900)
 			setScene(0);
-		}
-		checkPause();
 
+		_framecounter++;
+
+		if (_framecounter>5){
+			pause();
+		}
 	}
 	void Mainframe::collisions() {
 	}
@@ -219,16 +226,22 @@ namespace M3 {
 		HUD::drawPauseButton();
 		EndDrawing();
 	}
-	void Mainframe::checkPause(){
+	void Mainframe::pause(){
 		if (IsKeyReleased(KEY_ESCAPE)) {
-			_pause = true;
+			screenId = screenID::pause;
+			_framecounter = 0;
+			
 		}
 	}
-	void Mainframe::checkUnpause() {
-		if (IsKeyReleased(KEY_ESCAPE)) {
-			_pause = false;
+
+	void Mainframe::unpause() {
+
+		if (IsKeyPressed(KEY_ESCAPE)) {
+			screenId = screenID::game;
+			_framecounter = 0;
 		}
 	}
+	
 	void Mainframe::checkMenu() {
 		if (IsKeyDown(KEY_M)) {
 			setScene(0);
