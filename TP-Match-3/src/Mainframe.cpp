@@ -6,6 +6,8 @@ namespace M3 {
 		_winHeight = 720;
 		_pause = false;
 		_mainBool = true;
+		_framecounter = 0;
+		_secondcounter = 0;
 		screenID screenId;
 	}
 	Mainframe::~Mainframe() {
@@ -15,13 +17,12 @@ namespace M3 {
 
 	void Mainframe::init() {
 		screenId = screenID::menu;
-		InitWindow(_winWidth, _winHeight, "HSS - Match 3");
-		SetTargetFPS(60);
+		InitWindow(_winWidth, _winHeight, "HSS - Bejeweln't");
+		SetTargetFPS(30);
 		SetExitKey(KEY_VOLUME_UP);
 		InitAudioDevice();
-
-		
-
+		menuTheme = LoadMusicStream("../res/SpaceDrums.mp3");
+		gameTheme = LoadMusicStream("../res/SpaceSong.mp3");
 #if DEBUG
 	
 #endif
@@ -45,6 +46,8 @@ namespace M3 {
 				menuScreen();
 			case screenID::game:
 				gameScreen();
+			case screenID::pause:
+				pauseScreen();
 			}
 		}
 	}
@@ -73,12 +76,18 @@ namespace M3 {
 		closeButton.height = 30.0f*1.6f;
 		closeButton.width = 81.25f*1.6f;
 
+		PlayMusicStream(menuTheme);
+		SetMusicVolume(menuTheme, 0.2f);
+
 		while (!WindowShouldClose() && screenId == screenID::menu&&_mainBool) {
+
+			UpdateMusicStream(menuTheme);
+
 			BeginDrawing();
 			ClearBackground(BLACK);
 			
 
-			DrawText(FormatText("Match 3"), 20, 10, 120, WHITE);
+			DrawText(FormatText("Bejeweln't"), 20, 10, 120, WHITE);
 
 			if (CheckCollisionPointRec(GetMousePosition(), playButton))
 				DrawText(FormatText("Play"), 20, GetScreenHeight() / 2 , 30*1.6f, RED);
@@ -102,17 +111,12 @@ namespace M3 {
 				DrawText(FormatText("Close"), 20, (GetScreenHeight() / 2) + 150 * 1.6f, 30 * 1.6f, WHITE);
 
 
-			DrawText(FormatText("v 0.1"), GetScreenWidth() - 50, 1, 20, WHITE);
+			DrawText(FormatText("v 0.8"), GetScreenWidth() - 50, 1, 20, WHITE);
 			if (CheckCollisionPointRec(GetMousePosition(), creditsButton)) {
 				DrawText(FormatText("Engine: Raylib 3.0"), (GetScreenWidth() / 2 + 40), (GetScreenHeight() / 3) + 20, 30, WHITE);
 				DrawText(FormatText("Created by:"), (GetScreenWidth() / 2 + 40), (GetScreenHeight() / 3) + 100, 30, WHITE);
 				DrawText(FormatText("Matias P. Karplus"), (GetScreenWidth() / 2 + 40), (GetScreenHeight() / 3) + 130, 30, WHITE);
 			}
-
-			if (CheckCollisionPointRec(GetMousePosition(), tutorialButton)) {
-
-			}
-
 
 			EndDrawing();
 			if (CheckCollisionPointRec(GetMousePosition(), closeButton) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
@@ -126,10 +130,19 @@ namespace M3 {
 	}
 	void Mainframe::gameScreen(){
 
+		Rectangle pauseButton;
+		pauseButton.x = GetScreenWidth()/2+ 170;
+		pauseButton.y = (GetScreenHeight() / 2) + 150.0f*1.6f;
+		pauseButton.height = 30.0f*1.6f;
+		pauseButton.width = 81.25f*1.6f;
+
 		JWL::initJl();
 		ACTIONS::initBoard();
 		ACTIONS::nullJLArray();
 		PLAYER::initPlayer();
+		ACTIONS::initSounds();
+		PlayMusicStream(gameTheme);
+		SetMusicVolume(gameTheme,0.1f);
 
 		while (!WindowShouldClose() && screenId == screenID::game&&_mainBool) {
 			if (!_pause) {
@@ -145,6 +158,34 @@ namespace M3 {
 		}
 	}
 
+	void Mainframe::pauseScreen(){
+		Rectangle resumeButton;
+		resumeButton.x = GetScreenWidth() - 150;
+		resumeButton.y = (GetScreenHeight() / 2) + 150.0f*1.6f;
+		resumeButton.height = 30.0f*1.6f;
+		resumeButton.width = 81.25f*1.6f;
+		Rectangle menuButton;
+		menuButton.x = GetScreenWidth() - 150;
+		menuButton.y = (GetScreenHeight() / 2) + 210.0f*1.6f;
+		menuButton.height = 30.0f*1.6f;
+		menuButton.width = 81.25f*1.6f;
+
+		while (!WindowShouldClose() && screenId == screenID::pause&&_mainBool) {
+			BeginDrawing();
+			ClearBackground(BLACK);
+			DrawText(FormatText("Bejeweln't"), 20, 10, 120, WHITE);
+
+			EndDrawing();
+
+			if (CheckCollisionPointRec(GetMousePosition(), resumeButton) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+				setScene(1);
+			}
+			if (CheckCollisionPointRec(GetMousePosition(), menuButton) && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+				setScene(0);
+			}
+		}
+	}
+
 
 	void Mainframe::input() {
 
@@ -154,20 +195,28 @@ namespace M3 {
 		ACTIONS::jewelSelect();
 		ACTIONS::jewelDeselect();
 		ACTIONS::checkArray();
+		UpdateMusicStream(gameTheme);
 		if (PLAYER::player.score>=900){
 			setScene(0);
 		}
+		checkPause();
+
 	}
 	void Mainframe::collisions() {
-		
 	}
 	void Mainframe::draw() {
 		BeginDrawing();
 		ClearBackground(BLACK);
 		JWL::drawJl();
 		HUD::drawScore();
-		
+		HUD::drawPauseButton();
 		EndDrawing();
 	}
-
+	void Mainframe::checkPause() {
+		if (IsKeyPressed(KEY_ESCAPE)) {
+			_pause = true;
+			setScene(2);
+			cout << "Game paused" << endl;
+		}
+	}
 }

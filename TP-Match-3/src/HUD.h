@@ -7,10 +7,8 @@
 namespace M3 {
 	namespace HUD {
 		void drawScore();
+		void drawPauseButton();
 	
-	
-	
-
 	}
 }
 #endif

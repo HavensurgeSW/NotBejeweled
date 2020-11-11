@@ -7,13 +7,21 @@ namespace M3 {
 
 		int jlArray[3];
 		int jlArrayPos = 0;
+		Sound jlbreak;
+		Sound jlselect;
+		Sound jldeselect;
+
+		void initSounds(){
+			jlbreak = LoadSound("../res/break.ogg");
+			jlselect = LoadSound("../res/selectjl.ogg");
+			jldeselect = LoadSound("../res/deselectjl.ogg");
+		}
 
 		void nullJLArray() {
 			for (int i = 0; i < 4; i++) {
 				jlArray[i] = 0;
 			}
 		}
-
 		void initBoard() {
 			for (int i = 0; i < JWL::jlMax; i++) {
 				for (int j = 0; j < JWL::jlMax; j++) {
@@ -22,7 +30,6 @@ namespace M3 {
 				}
 			}
 		}
-
 		void jewelSelect() {
 
 			if (jlArrayPos == 0){
@@ -49,13 +56,13 @@ namespace M3 {
 							JWL::jl[i][j].selected = true;
 							jlArray[jlArrayPos] = JWL::jl[i][j].id;
 							jlArrayPos++;
+							PlaySound(jlselect);
 						
 						}
 					}
 				}
 			}
 		}
-
 		void jewelDeselect() {
 			for (int i = 0; i < JWL::jlMax; i++) {
 				for (int j = 0; j < JWL::jlMax; j++) {
@@ -67,12 +74,12 @@ namespace M3 {
 #endif
 						jlArrayPos--;
 						jlArray[jlArrayPos] = 0;
+						PlaySound(jldeselect);
 
 					}
 				}
 			}
 		}
-
 		void checkArray() {
 			if (jlArray[0] == jlArray[0] && jlArray[1] == jlArray[0] && jlArray[2] == jlArray[0]) {
 				for (int i = 0; i < JWL::jlMax; i++) {
@@ -83,16 +90,17 @@ namespace M3 {
 							nullJLArray();
 							jlArrayPos = 0;
 							PLAYER::player.score += 10;
+							PlaySound(jlbreak);
 						}
 					}
 				}
 			}
 			JWL::regenJl();
 		}
-
 		void updateArray(){
 			
 		}
+
 	}
 
 }

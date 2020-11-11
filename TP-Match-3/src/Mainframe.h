@@ -18,13 +18,19 @@ namespace M3 {
 		int _winHeight;
 		bool _pause;
 		bool _mainBool;
+		int _framecounter;
+		int _secondcounter;
+
 
 	public:
 		enum class screenID {
 			menu,
-			game
+			game,
+			pause
 		};
 		screenID screenId;
+		Music menuTheme;
+		Music gameTheme;
 
 		Mainframe();
 		~Mainframe();
@@ -33,11 +39,14 @@ namespace M3 {
 		void mainLoop();
 		void menuScreen();
 		void gameScreen();
+		void pauseScreen();
 		
 		void update();
 		void draw();
 		void input();
 		void collisions();
+
+		void checkPause();
 	};
 }
 #endif

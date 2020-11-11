@@ -8,6 +8,7 @@
 namespace M3 {
 	namespace ACTIONS {
 		void initBoard();
+		void initSounds();
 
 		void jewelSelect();
 		void jewelDeselect();
@@ -16,6 +17,9 @@ namespace M3 {
 		void nullJLArray();
 
 		extern int jlArray[3];
+		extern Sound jlbreak;
+		extern Sound jlselect;
+		extern Sound jldeselect;
 	}
 }
 
