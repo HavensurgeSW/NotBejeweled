@@ -23,6 +23,7 @@ namespace M3 {
 		JWL::initJl();
 		ACTIONS::initBoard();
 		ACTIONS::nullJLArray();
+
 #if DEBUG
 	
 #endif
@@ -146,6 +147,7 @@ namespace M3 {
 
 	}
 	void Mainframe::update() {
+		JWL::selectable();
 		ACTIONS::jewelSelect();
 		ACTIONS::jewelDeselect();
 		ACTIONS::checkArray();

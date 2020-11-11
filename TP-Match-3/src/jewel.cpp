@@ -3,8 +3,21 @@
 namespace M3{
 	namespace JWL {
 
+		Texture2D forest;
+		Texture2D island;
+		Texture2D mountain;
+		Texture2D plains;
+		Texture2D swamp;
+
+	
 		Jewel jl[jlMax][jlMax];
 		void initJl() {
+			forest = LoadTexture("../res/forest.png");
+			island = LoadTexture("../res/island.png");
+			mountain = LoadTexture("../res/mountain.png");
+			plains = LoadTexture("../res/plains.png");
+			swamp = LoadTexture("../res/swamp.png");
+
 			for (int i = 0; i < jlMax; i++) {
 				for (int j = 0; j < jlMax; j++) {
 					jl[i][j].rec.height = 90;
@@ -16,27 +29,27 @@ namespace M3{
 					case 1:
 						jl[i][j].id = 1;
 						jl[i][j].color = GREEN;
-						jl[i][j].texture = LoadTexture("../res/forest.png");
+						jl[i][j].texture = forest;
 						break;
 					case 2:
 						jl[i][j].id = 2;
 						jl[i][j].color = SKYBLUE;
-						jl[i][j].texture = LoadTexture("../res/island.png");
+						jl[i][j].texture = island;
 						break;
 					case 3:
 						jl[i][j].id = 3;
 						jl[i][j].color = RED;
-						jl[i][j].texture = LoadTexture("../res/mountain.png");
+						jl[i][j].texture = mountain;
 						break;
 					case 4:
 						jl[i][j].id = 4;
 						jl[i][j].color = RAYWHITE;
-						jl[i][j].texture = LoadTexture("../res/plains.png");
+						jl[i][j].texture = plains;
 						break;
 					case 5:
 						jl[i][j].id = 5;
 						jl[i][j].color = PURPLE;
-						jl[i][j].texture = LoadTexture("../res/swamp.png");
+						jl[i][j].texture = swamp;
 						break;
 					}
 				}
@@ -96,22 +109,41 @@ namespace M3{
 				for (int j = 0; j < jlMax; j++) {
 					switch (id){
 					case 1:
-						return LoadTexture("../res/forest.png");
+						return forest;
 						break;
 					case 2:
-						return LoadTexture("../res/island.png");
+						return island;
 						break;
 					case 3:
-						return LoadTexture("../res/mountain.png");
+						return mountain;
 						break;
 					case 4:
-						return LoadTexture("../res/plains.png");
+						return plains;
 						break;
 					case 5:
-						return LoadTexture("../res/swamp.png");
+						return swamp;
 						break;
 
 					}
+				}
+			}
+		}
+
+		void selectable(){
+			for (int i = 0; i < jlMax; i++) {
+				for (int j = 0; j < jlMax; j++) {
+					if (jl[i - 1][j].selected||
+						jl[i][j - 1].selected||
+						jl[i-1][j-1].selected||
+						jl[i+1][j].selected ||
+						jl[i][j+1].selected ||
+						jl[i+1][j+1].selected ||
+						jl[i-1][j+1].selected ||
+						jl[i+1][j-1].selected){
+
+						jl[i][j].canBeSelected = true;
+					}
+
 				}
 			}
 		}

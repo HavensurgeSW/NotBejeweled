@@ -24,9 +24,27 @@ namespace M3 {
 		}
 
 		void jewelSelect() {
+
+			if (jlArrayPos == 0){
+				for (int i = 0; i < JWL::jlMax; i++) {
+					for (int j = 0; j < JWL::jlMax; j++) {
+						JWL::jl[i][j].canBeSelected = true;
+					}
+				}
+			}
+			else {
+				for (int i = 0; i < JWL::jlMax; i++) {
+					for (int j = 0; j < JWL::jlMax; j++) {
+						JWL::jl[i][j].canBeSelected = false;
+					}
+				}
+			}
+
+			JWL::selectable();
+
 			for (int i = 0; i < JWL::jlMax; i++) {
 				for (int j = 0; j < JWL::jlMax; j++) {
-					if (CheckCollisionPointRec(GetMousePosition(), JWL::jl[i][j].rec) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && JWL::jl[i][j].selected == false) {
+					if (CheckCollisionPointRec(GetMousePosition(), JWL::jl[i][j].rec) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && JWL::jl[i][j].selected == false&&JWL::jl[i][j].canBeSelected) {
 						if (JWL::jl[i][j].id == jlArray[0] || jlArray[0] == 0) {
 							JWL::jl[i][j].selected = true;
 							jlArray[jlArrayPos] = JWL::jl[i][j].id;
@@ -53,7 +71,6 @@ namespace M3 {
 				}
 			}
 		}
-
 
 		void checkArray() {
 			if (jlArray[0] == jlArray[0] && jlArray[1] == jlArray[0] && jlArray[2] == jlArray[0]) {

@@ -15,14 +15,22 @@ namespace M3{
 			Texture2D texture;
 			bool selected;
 			bool active;
+			bool canBeSelected;
 		};
+		extern Texture2D forest;
+		extern Texture2D island;
+		extern Texture2D mountain;
+		extern Texture2D plains;
+		extern Texture2D swamp;
+
 		const int jlMax = 6;
 		extern Jewel jl[jlMax][jlMax];
 		void initJl();
 		void regenJl();
 		void drawJl();
-
 		Texture2D returnTex(int id);
+		void selectable();
+
 	}
 }
 #endif JEWEL_H
