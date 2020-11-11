@@ -49,6 +49,7 @@ namespace M3 {
 							JWL::jl[i][j].selected = true;
 							jlArray[jlArrayPos] = JWL::jl[i][j].id;
 							jlArrayPos++;
+						
 						}
 					}
 				}
@@ -81,6 +82,7 @@ namespace M3 {
 							JWL::jl[i][j].active = false;
 							nullJLArray();
 							jlArrayPos = 0;
+							PLAYER::player.score += 10;
 						}
 					}
 				}

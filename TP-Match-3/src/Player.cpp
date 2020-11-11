@@ -1,5 +1,12 @@
 #include "Player.h"
 
 namespace M3 {
-	Player player;
+	namespace PLAYER {
+		Player player;
+
+
+		void initPlayer() {
+			player.score = 0;
+		}
+	}
 }

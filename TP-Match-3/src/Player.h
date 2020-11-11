@@ -2,11 +2,14 @@
 #define PLAYER_H
 #include "raylib.h"
 
-struct Player {
-	int score = 0;
-};
-extern Player player;
+namespace M3 {
+	namespace PLAYER {
+		struct Player {
+			int score;
+		};
+		extern Player player;
 
-
-
+		void initPlayer();
+	}
+}
 #endif

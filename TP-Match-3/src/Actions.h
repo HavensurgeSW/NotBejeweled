@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "jewel.h"
+#include "Player.h"
 
 namespace M3 {
 	namespace ACTIONS {

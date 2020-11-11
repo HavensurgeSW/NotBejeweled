@@ -20,9 +20,7 @@ namespace M3 {
 		SetExitKey(KEY_VOLUME_UP);
 		InitAudioDevice();
 
-		JWL::initJl();
-		ACTIONS::initBoard();
-		ACTIONS::nullJLArray();
+		
 
 #if DEBUG
 	
@@ -128,6 +126,11 @@ namespace M3 {
 	}
 	void Mainframe::gameScreen(){
 
+		JWL::initJl();
+		ACTIONS::initBoard();
+		ACTIONS::nullJLArray();
+		PLAYER::initPlayer();
+
 		while (!WindowShouldClose() && screenId == screenID::game&&_mainBool) {
 			if (!_pause) {
 				input();
@@ -151,6 +154,9 @@ namespace M3 {
 		ACTIONS::jewelSelect();
 		ACTIONS::jewelDeselect();
 		ACTIONS::checkArray();
+		if (PLAYER::player.score>=900){
+			setScene(0);
+		}
 	}
 	void Mainframe::collisions() {
 		

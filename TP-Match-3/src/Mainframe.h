@@ -4,8 +4,8 @@
 #include "jewel.h"
 #include "Actions.h"
 #include "HUD.h"
-//#include "Player.h"
-//#include "Actions.h"
+#include "Player.h"
+
 
 #include <iostream>
 using namespace std;
