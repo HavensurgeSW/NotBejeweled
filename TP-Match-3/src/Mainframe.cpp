@@ -92,8 +92,13 @@ namespace M3 {
 			else
 				DrawText(FormatText("Play"), 20, GetScreenHeight() / 2 , 30*1.6f, WHITE);
 
-			if (CheckCollisionPointRec(GetMousePosition(), tutorialButton))
-				DrawText(FormatText("Tutorial"), 20, (GetScreenHeight() / 2)+50 * 1.6f, 30 * 1.6f, RED);
+			if (CheckCollisionPointRec(GetMousePosition(), tutorialButton)) {
+				DrawText(FormatText("Tutorial"), 20, (GetScreenHeight() / 2) + 50 * 1.6f, 30 * 1.6f, RED);
+				DrawText(FormatText("[LEFT CLICK] to select a Jewel"), (GetScreenWidth() / 2)-50, (GetScreenHeight() / 2) + 50 * 1.6f, 20 * 1.6f, WHITE);
+				DrawText(FormatText("[RIGHT CLICK] to deselect a Jewel"), (GetScreenWidth() / 2)-50, (GetScreenHeight() / 2) + 80 * 1.6f, 20* 1.6f, WHITE);
+				DrawText(FormatText("Select 3 jewels of the same color to pop!"), (GetScreenWidth() / 2)-50, (GetScreenHeight() / 2) + 110 * 1.6f, 20 * 1.6f, WHITE);
+			}
+
 			else
 				DrawText(FormatText("Tutorial"), 20, (GetScreenHeight() / 2)+50 * 1.6f, 30 * 1.6f, WHITE);
 
@@ -109,7 +114,7 @@ namespace M3 {
 				DrawText(FormatText("Close"), 20, (GetScreenHeight() / 2) + 150 * 1.6f, 30 * 1.6f, WHITE);
 
 
-			DrawText(FormatText("v 0.8"), GetScreenWidth() - 50, 1, 20, WHITE);
+			DrawText(FormatText("v 1.0"), GetScreenWidth() - 50, 1, 20, WHITE);
 			if (CheckCollisionPointRec(GetMousePosition(), creditsButton)) {
 				DrawText(FormatText("Engine: Raylib 3.0"), (GetScreenWidth() / 2 + 40), (GetScreenHeight() / 3) + 20, 30, WHITE);
 				DrawText(FormatText("Created by:"), (GetScreenWidth() / 2 + 40), (GetScreenHeight() / 3) + 100, 30, WHITE);
@@ -130,11 +135,6 @@ namespace M3 {
 
 		gamebg = LoadTexture("../res/gamebg.png");
 		gameTheme = LoadMusicStream("../res/SpaceSong.mp3");
-		Rectangle pauseButton;
-		pauseButton.x = GetScreenWidth()/2+ 170;
-		pauseButton.y = (GetScreenHeight() / 2) + 150.0f*1.6f;
-		pauseButton.height = 30.0f*1.6f;
-		pauseButton.width = 81.25f*1.6f;
 
 		JWL::initJl();
 		ACTIONS::initBoard();
@@ -147,13 +147,13 @@ namespace M3 {
 		_pause = false;
 		while (!WindowShouldClose()&& screenId == screenID::game|| screenId == screenID::pause) {
 			cout << _pause << endl;
-			if (screenId == screenID::game && !WindowShouldClose()) {
+			if (screenId == screenID::game) {
 				input();
 				update();
 				collisions();
 				draw();
 			}
-			if (screenId == screenID::pause&&!WindowShouldClose()){
+			if (screenId == screenID::pause){
 				pauseScreen();
 			}
 
@@ -162,28 +162,42 @@ namespace M3 {
 
 	void Mainframe::pauseScreen(){
 		Rectangle resumeButton;
-		resumeButton.x = GetScreenWidth() - 150;
+		resumeButton.x = GetScreenWidth() - 200;
 		resumeButton.y = (GetScreenHeight() / 2) + 150.0f*1.6f;
 		resumeButton.height = 30.0f*1.6f;
-		resumeButton.width = 81.25f*1.6f;
+		resumeButton.width = 113.75f*1.6f;
 		Rectangle menuButton;
-		menuButton.x = GetScreenWidth() - 150;
-		menuButton.y = (GetScreenHeight() / 2) + 210.0f*1.6f;
+		menuButton.x = GetScreenWidth() - 400;
+		menuButton.y = (GetScreenHeight() / 2) + 150.0f*1.6f;
 		menuButton.height = 30.0f*1.6f;
-		menuButton.width = 81.25f*1.6f;
+		menuButton.width = 65.0f*1.6f;
 
 		
 			BeginDrawing();
 			ClearBackground(BLACK);
+			DrawTexture(menubg,0,0,WHITE);
 			DrawText(FormatText("Bejeweln't"), 20, 10, 120, WHITE);
 			DrawText(FormatText("Current Score: "), 20, 150, 30*1.6f, RED);
 			DrawText(TextFormat("%i", PLAYER::player.score), 416, 150, 30 * 1.6f, WHITE);
 
+
+			if (CheckCollisionPointRec(GetMousePosition(), resumeButton))
+				DrawText(FormatText("Resume"), GetScreenWidth() - 200, (GetScreenHeight() / 2) + 150.0f*1.6f, 30 * 1.6f, RED);
+			else
+				DrawText(FormatText("Resume"), GetScreenWidth() - 200 , (GetScreenHeight() / 2) + 150.0f*1.6f, 30 * 1.6f, WHITE);
+			
+			
+
+			if (CheckCollisionPointRec(GetMousePosition(), menuButton))
+				DrawText(FormatText("Menu"), GetScreenWidth() - 400, (GetScreenHeight() / 2) + 150.0f*1.6f, 30 * 1.6f, RED);
+			else
+				DrawText(FormatText("Menu"), GetScreenWidth() - 400, (GetScreenHeight() / 2) + 150.0f*1.6f, 30 * 1.6f, WHITE);
+
+			//DrawRectangleRec(resumeButton,RED);
+			//DrawRectangleRec(menuButton, GREEN);
+
 			EndDrawing();
 
-			if (CheckCollisionPointRec(GetMousePosition(), resumeButton) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
-				setScene(1);
-			}
 			if (CheckCollisionPointRec(GetMousePosition(), menuButton) && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
 				setScene(0);
 			}
@@ -192,12 +206,15 @@ namespace M3 {
 			if (_framecounter < 6) {
 				_framecounter++;
 			}
-
 			if (_framecounter>5) {
-				unpause();
+			if (CheckCollisionPointRec(GetMousePosition(), resumeButton) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)||IsKeyPressed(KEY_ESCAPE)) {
+					unpause();
+				}
 			}
 
+#if DEBUG
 			checkMenu();
+#endif
 	}
 
 
@@ -240,11 +257,9 @@ namespace M3 {
 	}
 
 	void Mainframe::unpause() {
-
-		if (IsKeyPressed(KEY_ESCAPE)) {
 			screenId = screenID::game;
 			_framecounter = 0;
-		}
+	
 	}
 	
 	void Mainframe::checkMenu() {
